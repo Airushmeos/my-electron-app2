@@ -1,44 +1,44 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
-let robloxWindow, emailWindow, ladenWindow; // Variablen für Fenster
+let ftpWindow, appWindow, ladenWindow; // Variablen für Fenster
 
 function createWindowapp() {
-    if (robloxWindow) {
-        robloxWindow.focus();
+    if (appWindow) {
+        appWindow.focus();
         return;
     }
 
-    robloxWindow = new BrowserWindow({
+    appWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: { nodeIntegration: true }
     });
 
 //    robloxWindow.loadFile("index3.html");
-    robloxWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
+    appWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
 
-    robloxWindow.on("closed", () => {
-        robloxWindow = null;
+    appWindow.on("closed", () => {
+        appWindow = null;
     });
 }
 
 function createWindowftp() {
-    if (robloxWindow) {
-        robloxWindow.focus();
+    if (ftpWindow) {
+        ftpWindow.focus();
         return;
     }
 
-    robloxWindow = new BrowserWindow({
+    ftpWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: { nodeIntegration: true }
     });
 
 //    robloxWindow.loadFile("index3.html");
-    robloxWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
+    ftpWindow.loadURL("https://myfirstwebsite.lima-city.at/ftp");
 
-    robloxWindow.on("closed", () => {
-        robloxWindow = null;
+    ftpWindow.on("closed", () => {
+        ftpWindow = null;
     });
 }
 
