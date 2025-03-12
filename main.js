@@ -15,7 +15,7 @@ function createWindowapp() {
     });
 
 //    robloxWindow.loadFile("index3.html");
-    robloxWindow.loadURL("https://myfirstwebsite.lima-city.at/roblox/sehen.html");
+    robloxWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
 
     robloxWindow.on("closed", () => {
         robloxWindow = null;
