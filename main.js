@@ -2,7 +2,7 @@ const { app, BrowserWindow, Menu, shell } = require("electron");
 
 let robloxWindow, emailWindow, ladenWindow; // Variablen für Fenster
 
-function createWindowroblox() {
+function createWindowapp() {
     if (robloxWindow) {
         robloxWindow.focus();
         return;
@@ -19,44 +19,6 @@ function createWindowroblox() {
 
     robloxWindow.on("closed", () => {
         robloxWindow = null;
-    });
-}
-
-function createWindowemail() {
-    if (emailWindow) {
-        emailWindow.focus();
-        return;
-    }
-
-    emailWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: { nodeIntegration: true }
-    });
-
-    emailWindow.loadURL("https://myfirstwebsite.lima-city.at/senden");
-
-    emailWindow.on("closed", () => {
-        emailWindow = null;
-    });
-}
-
-function createWindowladen() {
-    if (ladenWindow) {
-        ladenWindow.focus();
-        return;
-    }
-
-    ladenWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: { nodeIntegration: true }
-    });
-
-    ladenWindow.loadURL("https://myfirstwebsite.lima-city.at/laden");
-
-    ladenWindow.on("closed", () => {
-        ladenWindow = null;
     });
 }
 
@@ -78,9 +40,9 @@ const menuTemplate = [
     {
         label: "Seiten",
         submenu: [
-            { label: "Roblox", click: createWindowroblox },
-            { label: "E-Mail", click: createWindowemail },
-            { label: "Laden", click: createWindowladen }
+            { label: "App", click: createWindowapp },
+        //    { label: "E-Mail", click: createWindowemail },
+        //    { label: "Laden", click: createWindowladen }
         ]
     }
 ];
