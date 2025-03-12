@@ -1,5 +1,5 @@
 {
-  "name": "meine_app",
+  "name": "meine_app2",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "build": {
     "appId": "com.meinefirma.meineapp",
-    "productName": "Meine App",
+    "productName": "Meine App2",
     "copyright": "© 2025 Jakob",
     "win": {
       "icon": "icon.ico",

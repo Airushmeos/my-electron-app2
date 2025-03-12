@@ -34,7 +34,7 @@ function createWindowemail() {
         webPreferences: { nodeIntegration: true }
     });
 
-    emailWindow.loadFile("index2.html");
+    emailWindow.loadURL("https://myfirstwebsite.lima-city.at/senden");
 
     emailWindow.on("closed", () => {
         emailWindow = null;
