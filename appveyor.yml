@@ -19,4 +19,4 @@ build_script:
 # Artefakte speichern (die fertige EXE-Datei)
 artifacts:
   - path: dist/*.exe
-    name: ElectronApp
+    name: ElectronApp2
