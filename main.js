@@ -22,6 +22,26 @@ function createWindowapp() {
     });
 }
 
+function createWindowftp() {
+    if (robloxWindow) {
+        robloxWindow.focus();
+        return;
+    }
+
+    robloxWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true }
+    });
+
+//    robloxWindow.loadFile("index3.html");
+    robloxWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
+
+    robloxWindow.on("closed", () => {
+        robloxWindow = null;
+    });
+}
+
 // 📌 **Menüleiste definieren**
 const menuTemplate = [
     {
@@ -41,7 +61,7 @@ const menuTemplate = [
         label: "Seiten",
         submenu: [
             { label: "App", click: createWindowapp },
-        //    { label: "E-Mail", click: createWindowemail },
+            { label: "FTP", click: createWindowftp },
         //    { label: "Laden", click: createWindowladen }
         ]
     }
