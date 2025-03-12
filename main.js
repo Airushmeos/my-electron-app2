@@ -69,11 +69,11 @@ const menuTemplate = [
 
 // 🚀 **App starten**
 app.whenReady().then(() => {
-    createWindowemail();
+    createWindowapp();
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 });
 
 // 🔄 **Fenster bei MacOS wiederherstellen**
 app.on("activate", () => {
-    if (!emailWindow) createWindowemail();
+    if (!emailWindow) createWindowapp();
 });
