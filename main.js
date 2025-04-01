@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
-let ftpWindow, appWindow, streamWindow, streamHtmlWindow; // Variablen für Fenster
+let ftpWindow, appWindow, streamWindow, streamHtmlWindow, kiWindow; // Variablen für Fenster
 
 function createWindowapp() {
     if (appWindow) {
@@ -78,6 +78,25 @@ function createWindowStreamHtml() {
     });
 }
 
+function createWindowKI() {
+    if (kiWindow) {
+        kiWindow.focus();
+        return;
+    }
+
+    kiWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true }
+    });
+
+    kiWindow.loadURL("https://myfirstwebsite.lima-city.at/KI/");
+
+    kiWindow.on("closed", () => {
+        kiWindow = null;
+    });
+}
+
 // 📌 **Menüleiste definieren**
 const menuTemplate = [
     {
@@ -99,7 +118,8 @@ const menuTemplate = [
             { label: "App", click: createWindowapp },
             { label: "FTP", click: createWindowftp },
             { label: "Stream", click: createWindowStream },
-            { label: "Stream HTML", click: createWindowStreamHtml }
+            { label: "Stream HTML", click: createWindowStreamHtml },
+            { label: "KI", click: createWindowKI }
         ]
     }
 ];
