@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
-let ftpWindow, appWindow, streamWindow, streamHtmlWindow, kiWindow; // Variablen für Fenster
+let ftpWindow, appWindow, streamWindow, kiWindow; // Variablen für Fenster
 
 function createWindowapp() {
     if (appWindow) {
@@ -59,25 +59,6 @@ function createWindowStream() {
     });
 }
 
-function createWindowStreamHtml() {
-    if (streamHtmlWindow) {
-        streamHtmlWindow.focus();
-        return;
-    }
-
-    streamHtmlWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: { nodeIntegration: true }
-    });
-
-    streamHtmlWindow.loadURL("https://myfirstwebsite.lima-city.at/stream/stream.html");
-
-    streamHtmlWindow.on("closed", () => {
-        streamHtmlWindow = null;
-    });
-}
-
 function createWindowKI() {
     if (kiWindow) {
         kiWindow.focus();
@@ -118,7 +99,6 @@ const menuTemplate = [
             { label: "App", click: createWindowapp },
             { label: "FTP", click: createWindowftp },
             { label: "Stream", click: createWindowStream },
-            { label: "Stream HTML", click: createWindowStreamHtml },
             { label: "KI", click: createWindowKI }
         ]
     }
