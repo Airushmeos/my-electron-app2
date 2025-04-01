@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
-let ftpWindow, appWindow, ladenWindow; // Variablen für Fenster
+let ftpWindow, appWindow, streamWindow, streamHtmlWindow; // Variablen für Fenster
 
 function createWindowapp() {
     if (appWindow) {
@@ -14,7 +14,6 @@ function createWindowapp() {
         webPreferences: { nodeIntegration: true }
     });
 
-//    robloxWindow.loadFile("index3.html");
     appWindow.loadURL("https://myfirstwebsite.lima-city.at/app");
 
     appWindow.on("closed", () => {
@@ -34,11 +33,48 @@ function createWindowftp() {
         webPreferences: { nodeIntegration: true }
     });
 
-//    robloxWindow.loadFile("index3.html");
     ftpWindow.loadURL("https://myfirstwebsite.lima-city.at/ftp");
 
     ftpWindow.on("closed", () => {
         ftpWindow = null;
+    });
+}
+
+function createWindowStream() {
+    if (streamWindow) {
+        streamWindow.focus();
+        return;
+    }
+
+    streamWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true }
+    });
+
+    streamWindow.loadURL("https://myfirstwebsite.lima-city.at/stream");
+
+    streamWindow.on("closed", () => {
+        streamWindow = null;
+    });
+}
+
+function createWindowStreamHtml() {
+    if (streamHtmlWindow) {
+        streamHtmlWindow.focus();
+        return;
+    }
+
+    streamHtmlWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true }
+    });
+
+    streamHtmlWindow.loadURL("https://myfirstwebsite.lima-city.at/stream/stream.html");
+
+    streamHtmlWindow.on("closed", () => {
+        streamHtmlWindow = null;
     });
 }
 
@@ -62,7 +98,8 @@ const menuTemplate = [
         submenu: [
             { label: "App", click: createWindowapp },
             { label: "FTP", click: createWindowftp },
-        //    { label: "Laden", click: createWindowladen }
+            { label: "Stream", click: createWindowStream },
+            { label: "Stream HTML", click: createWindowStreamHtml }
         ]
     }
 ];
@@ -75,5 +112,5 @@ app.whenReady().then(() => {
 
 // 🔄 **Fenster bei MacOS wiederherstellen**
 app.on("activate", () => {
-    if (!emailWindow) createWindowftp();
+    if (!ftpWindow) createWindowftp();
 });
