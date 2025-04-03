@@ -71,7 +71,7 @@ function createWindowKI() {
         webPreferences: { nodeIntegration: true }
     });
 
-    kiWindow.loadURL("https://myfirstwebsite.lima-city.at/KI/");
+    kiWindow.loadURL("https://myfirstwebsite.lima-city.at/KI/%C3%B6ffentlich.html");
 
     kiWindow.on("closed", () => {
         kiWindow = null;
