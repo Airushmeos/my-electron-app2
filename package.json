@@ -19,7 +19,7 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "com.meinefirma.meineapp",
+    "appId": "com.meinefirma.meineapp2",
     "productName": "Meine App2",
     "copyright": "© 2025 Jakob",
     "win": {
