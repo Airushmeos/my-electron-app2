@@ -91,7 +91,7 @@ function createWindowemail() {
         webPreferences: { nodeIntegration: true }
     });
 
-    emailWindow.loadURL("https://myfirstwebsite.lima-city.at/KI/%C3%B6ffentlich.html");
+    emailWindow.loadURL("https://myfirstwebsite.lima-city.at/email/");
 
     emailWindow.on("closed", () => {
         emailWindow = null;
