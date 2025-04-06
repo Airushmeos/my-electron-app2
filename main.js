@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
-let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow; // Variablen für Fenster
+let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow; // Variablen für Fenster
 
 function createWindowapp() {
     if (appWindow) {
@@ -98,6 +98,25 @@ function createWindowemail() {
     });
 }
 
+function createWindowmassager() {
+    if (massagerWindow) {
+        massagerWindow.focus();
+        return;
+    }
+
+    massagerWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true }
+    });
+
+    massagerWindow.loadURL("https://myfirstwebsite.lima-city.at/chat/");
+
+    massagerWindow.on("closed", () => {
+        massagerWindow = null;
+    });
+}
+
 // 📌 **Menüleiste definieren**
 const menuTemplate = [
     {
@@ -120,7 +139,8 @@ const menuTemplate = [
             { label: "FTP", click: createWindowftp },
             { label: "Stream", click: createWindowStream },
             { label: "KI", click: createWindowKI },
-            { label: "E-Mail", click: createWindowemail }
+            { label: "E-Mail", click: createWindowemail },
+            { label: "Chat", click: createWindowmassager }
         ]
     }
 ];
