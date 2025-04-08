@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Massages</title>
+  </head>
+  <body>
+    <input type="text" id="Massages" placeholder="Massages">
+    <button id="send-notification">Senden</button>
+
+    <script>
+      const { ipcRenderer } = require("electron"); // Importiere ipcRenderer
+      //   const { username, password } = window.storage.getUser();
+      //   window.storage.setUser(username, password);
+      document.getElementById("send-notification").addEventListener("click", () => {
+        const massages = document.getElementById("Massages").value;
+        ipcRenderer.send("send-notification", massages);
+      });
+      ipcRenderer.send("send-notification", "Gestartet!");
+    </script>
+  </body>
+</html>
