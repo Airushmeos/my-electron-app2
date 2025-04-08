@@ -26,12 +26,6 @@
     "icon": "icon.ico",
     "target": ["nsis", "portable"]
   },
-  "mac": {
-    "icon": "icon.icns",  // macOS benötigt .icns für das App-Icon
-    "category": "public.app-category.utilities",  // Kategorien für macOS-Apps
-    "target": ["dmg", "zip"],  // Erstelle eine DMG-Datei für macOS
-    "maintainer": "Jakob <jakob.holzer03@gmail.com>"
-  },
   "linux": {
     "icon": "icon.png",
     "category": "Utility",
