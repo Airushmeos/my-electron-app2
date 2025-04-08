@@ -4,20 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Massages</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f4f4f9;
+      }
+
+      .container {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 300px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+
+      button {
+        padding: 0.8rem;
+        width: 100%;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      button:active {
+        background-color: #00408d;
+      }
+
+      .message {
+        margin-top: 1rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        color: #333;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        display: none;
+      }
+
+      .message.show {
+        display: block;
+      }
+    </style>
   </head>
   <body>
-    <input type="text" id="Massages" placeholder="Massages">
-    <button id="send-notification">Senden</button>
+    <div class="container">
+      <h2>Massages</h2>
+      <input type="text" id="Massages" placeholder="Schreibe eine Nachricht" />
+      <button id="send-notification">Senden</button>
+      <div class="message" id="message"></div>
+    </div>
 
     <script>
       const { ipcRenderer } = require("electron"); // Importiere ipcRenderer
-      //   const { username, password } = window.storage.getUser();
-      //   window.storage.setUser(username, password);
+
       document.getElementById("send-notification").addEventListener("click", () => {
         const massages = document.getElementById("Massages").value;
+        
+        if (massages.trim() === "") {
+          document.getElementById("message").textContent = "❌ Bitte gebe eine Nachricht ein!";
+          document.getElementById("message").classList.add("show");
+          return;
+        }
+
+        // Nachricht senden
         ipcRenderer.send("send-notification", massages);
+
+        // Erfolgsnachricht
+        document.getElementById("message").textContent = "✅ Nachricht gesendet!";
+        document.getElementById("message").classList.add("show");
+
+        // Textfeld zurücksetzen
+        document.getElementById("Massages").value = "";
       });
-      ipcRenderer.send("send-notification", "Gestartet!");
+
+      // Initiale Nachricht beim Laden der Seite
+      ipcRenderer.send("send-notification", "App gestartet!");
     </script>
   </body>
 </html>
