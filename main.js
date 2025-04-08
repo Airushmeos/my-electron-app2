@@ -85,7 +85,7 @@ function createWindowlogin() {
 }
 
 function createWindowmassages() {
-    massageWindow = createWindow("massages.html", massageWindow, "Massages");
+    massageWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/massages.html", massageWindow, "Massages");
 }
 
 // 🧠 Mitteilung senden
