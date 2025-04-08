@@ -1,9 +1,38 @@
 const { app, BrowserWindow, Menu, shell, Notification, Tray } = require("electron");
 const path = require("path");
+const fs = require("fs");
+const https = require("https");
 
 let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow;
 let tray = null;
 
+const userDataPath = app.getPath("userData");
+const htmlSavePath = path.join(userDataPath, "offline.html");
+const htmlDownloadUrl = "https://myfirstwebsite.lima-city.at/offline.html";
+
+// 🧩 Funktion zum Herunterladen und Speichern von HTML
+function loadOrDownloadHTML(callback) {
+    if (fs.existsSync(htmlSavePath)) {
+        console.log("📂 Lokale HTML-Datei gefunden.");
+        callback();
+    } else {
+        console.log("🌐 HTML wird heruntergeladen...");
+        https.get(htmlDownloadUrl, res => {
+            let data = "";
+            res.on("data", chunk => data += chunk);
+            res.on("end", () => {
+                fs.writeFileSync(htmlSavePath, data);
+                console.log("✅ HTML gespeichert unter:", htmlSavePath);
+                callback();
+            });
+        }).on("error", err => {
+            console.error("❌ Fehler beim Download:", err.message);
+            callback(); // Trotzdem App starten
+        });
+    }
+}
+
+// 📌 Funktion zum Erstellen eines Fensters
 function createWindow(url, refVar, title) {
     if (refVar && !refVar.isDestroyed()) {
         refVar.focus();
@@ -26,6 +55,7 @@ function createWindow(url, refVar, title) {
     return newWin;
 }
 
+// 🧠 Fenster Funktionen
 function createWindowapp() {
     appWindow = createWindow("https://myfirstwebsite.lima-city.at/app", appWindow, "App");
 }
@@ -82,12 +112,29 @@ const menuTemplate = [
             { label: "KI", click: createWindowKI },
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
+            { label: "Offline-Seite", click: () => loadOrDownloadHTML(createWindowOffline) }
         ],
     },
 ];
 
+// 🧠 Offline-Seite Fenster
+function createWindowOffline() {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        title: "Offline HTML",
+        webPreferences: { nodeIntegration: true },
+    });
+
+    win.loadFile(htmlSavePath);
+}
+
+// 🚀 App starten
 app.whenReady().then(() => {
-    createWindowftp();
+    loadOrDownloadHTML(() => {
+        createWindowftp();
+    });
+
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
     // 🎯 Tray aktivieren
@@ -103,7 +150,7 @@ app.whenReady().then(() => {
     // 📣 Alle 5 Minuten Notification senden
     setInterval(() => {
         sendNotification();
-    }, 1 * 60 * 1000); // 5 Minuten
+    }, 1 * 60 * 1000); // 1 Minute
 });
 
 // 🧼 App beenden verhindern, wenn Fenster geschlossen wird
