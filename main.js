@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell, Notification, Tray } = require("electron");
+const { app, BrowserWindow, Menu, shell, Notification, Tray, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const https = require("https");
@@ -55,28 +55,6 @@ function createWindow(url, refVar, title) {
     return newWin;
 }
 
-function createWindow2(url, refVar, title) {
-    if (refVar && !refVar.isDestroyed()) {
-        refVar.focus();
-        return;
-    }
-
-    const newWin = new BrowserWindow({
-        width: 800,
-        height: 600,
-        title: title,
-        webPreferences: { nodeIntegration: true },
-    });
-
-    newWin.loadFile(path.join(__dirname, url));  // Zum Laden einer lokalen HTML-Datei
-
-    newWin.on("closed", () => {
-        refVar = null;
-    });
-
-    return newWin;
-}
-
 // 🧠 Fenster Funktionen
 function createWindowapp() {
     appWindow = createWindow("https://myfirstwebsite.lima-city.at/app", appWindow, "App");
@@ -103,15 +81,14 @@ function createWindowmassager() {
 }
 
 function createWindowlogin() {
-    loginWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/login.html", loginWindow, "login");
+    loginWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/login.html", loginWindow, "Login");
 }
 
 function createWindowmassages() {
-    massageWindow = createWindow2("massages.html", massageWindow, "login");
+    massageWindow = createWindow("massages.html", massageWindow, "Massages");
 }
 
 // 🧠 Mitteilung senden
-
 function sendNotification(body) {
     const iconPath = path.join(__dirname, 'icon.png'); // Stelle sicher, dass das Icon im gleichen Verzeichnis wie dein main.js liegt
 
@@ -146,24 +123,11 @@ const menuTemplate = [
             { label: "KI", click: createWindowKI },
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
-   //         { label: "Login", click: () => loadOrDownloadHTML(createWindowOffline) },
             { label: "Login", click: createWindowlogin },
             { label: "Massages", click: createWindowmassages }
         ],
     },
 ];
-
-// 🧠 Offline-Seite Fenster
-function createWindowOffline() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        title: "Login",
-        webPreferences: { nodeIntegration: true },
-    });
-
-    win.loadFile(htmlSavePath);
-}
 
 // 🚀 App starten
 app.whenReady().then(() => {
@@ -185,7 +149,7 @@ app.whenReady().then(() => {
 
     // 📣 Alle 5 Minuten Notification senden
     setInterval(() => {
-        sendNotification("App läuft im Hintergund!");
+        sendNotification("App läuft im Hintergrund!");
     }, 1 * 60 * 1000); // 1 Minute
 });
 
@@ -199,7 +163,6 @@ app.on("window-all-closed", (e) => {
 app.on("activate", () => {
     if (!ftpWindow) createWindowftp();
 });
-
 
 // ipcMain Listener für Benachrichtigungen
 ipcMain.on('send-notification', (event, body) => {
