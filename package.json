@@ -18,19 +18,25 @@
     "electron": "^34.3.0",
     "electron-builder": "^25.1.8"
   },
-  "build": {
-    "appId": "com.meinefirma.meineapp2",
-    "productName": "Meine App2",
-    "copyright": "© 2025 Jakob",
-    "win": {
-      "icon": "icon.ico",
-      "target": ["nsis", "portable"]
-    },
-    "linux": {
-      "icon": "icon.png",
-      "category": "Utility",
-      "maintainer": "Jakob <jakob.holzer03@gmail.com>",
-      "target": ["AppImage", "deb"]
-    }
+"build": {
+  "appId": "com.meinefirma.meineapp2",
+  "productName": "Meine App2",
+  "copyright": "© 2025 Jakob",
+  "win": {
+    "icon": "icon.ico",
+    "target": ["nsis", "portable"]
+  },
+  "mac": {
+    "icon": "icon.icns",  // macOS benötigt .icns für das App-Icon
+    "category": "public.app-category.utilities",  // Kategorien für macOS-Apps
+    "target": ["dmg", "zip"],  // Erstelle eine DMG-Datei für macOS
+    "maintainer": "Jakob <jakob.holzer03@gmail.com>"
+  },
+  "linux": {
+    "icon": "icon.png",
+    "category": "Utility",
+    "maintainer": "Jakob <jakob.holzer03@gmail.com>",
+    "target": ["AppImage", "deb"]
   }
+}
 }
