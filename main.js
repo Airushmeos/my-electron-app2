@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const https = require("https");
 
-let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow;
+let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow, loginWindow;
 let tray = null;
 
 const userDataPath = app.getPath("userData");
@@ -80,6 +80,10 @@ function createWindowmassager() {
     massagerWindow = createWindow("https://myfirstwebsite.lima-city.at/chat/", massagerWindow, "Chat");
 }
 
+function createWindowlogin() {
+    loginWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/login.html", loginWindow, "login");
+}
+
 // 🧠 Mitteilung senden
 
 function sendNotification(body) {
@@ -116,7 +120,8 @@ const menuTemplate = [
             { label: "KI", click: createWindowKI },
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
-            { label: "Login", click: () => loadOrDownloadHTML(createWindowOffline) }
+   //         { label: "Login", click: () => loadOrDownloadHTML(createWindowOffline) },
+            { label: "Login", click: createWindowlogin }
         ],
     },
 ];
