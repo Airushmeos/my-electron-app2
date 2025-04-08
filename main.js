@@ -7,8 +7,8 @@ let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow;
 let tray = null;
 
 const userDataPath = app.getPath("userData");
-const htmlSavePath = path.join(userDataPath, "offline.html");
-const htmlDownloadUrl = "https://myfirstwebsite.lima-city.at/offline.html";
+const htmlSavePath = path.join(userDataPath, "login.html");
+const htmlDownloadUrl = "https://myfirstwebsite.lima-city.at/passwort/login.html";
 
 // 🧩 Funktion zum Herunterladen und Speichern von HTML
 function loadOrDownloadHTML(callback) {
@@ -81,10 +81,14 @@ function createWindowmassager() {
 }
 
 // 🧠 Mitteilung senden
-function sendNotification() {
+
+function sendNotification(body) {
+    const iconPath = path.join(__dirname, 'icon.png'); // Stelle sicher, dass das Icon im gleichen Verzeichnis wie dein main.js liegt
+
     new Notification({
         title: "Meine App2",
-        body: "Läuft weiterhin im Hintergrund!",
+        body: body,
+        icon: iconPath,  // Das Icon für die Benachrichtigung
     }).show();
 }
 
@@ -112,7 +116,7 @@ const menuTemplate = [
             { label: "KI", click: createWindowKI },
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
-            { label: "Offline-Seite", click: () => loadOrDownloadHTML(createWindowOffline) }
+            { label: "Login", click: () => loadOrDownloadHTML(createWindowOffline) }
         ],
     },
 ];
@@ -122,7 +126,7 @@ function createWindowOffline() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        title: "Offline HTML",
+        title: "Login",
         webPreferences: { nodeIntegration: true },
     });
 
@@ -149,7 +153,7 @@ app.whenReady().then(() => {
 
     // 📣 Alle 5 Minuten Notification senden
     setInterval(() => {
-        sendNotification();
+        sendNotification("App läuft im Hintergund!");
     }, 1 * 60 * 1000); // 1 Minute
 });
 
