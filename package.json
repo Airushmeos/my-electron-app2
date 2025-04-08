@@ -1,6 +1,6 @@
 {
   "name": "meine_app2",
-  "version": "1.0.0",
+  "version": "1.0.${BUILD_NUMBER}",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
