@@ -1,5 +1,5 @@
 # Nutzt Windows als Build-Umgebung
-image: macos-latest
+image: macOS-Sonoma
 
 #macos-latest
 #Visual Studio 2022
