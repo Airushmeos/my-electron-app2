@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const https = require("https");
 
-let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow, loginWindow;
+let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow, loginWindow, massageWindow;
 let tray = null;
 
 const userDataPath = app.getPath("userData");
@@ -55,6 +55,28 @@ function createWindow(url, refVar, title) {
     return newWin;
 }
 
+function createWindow2(url, refVar, title) {
+    if (refVar && !refVar.isDestroyed()) {
+        refVar.focus();
+        return;
+    }
+
+    const newWin = new BrowserWindow({
+        width: 800,
+        height: 600,
+        title: title,
+        webPreferences: { nodeIntegration: true },
+    });
+
+    newWin.loadFile(path.join(__dirname, url));  // Zum Laden einer lokalen HTML-Datei
+
+    newWin.on("closed", () => {
+        refVar = null;
+    });
+
+    return newWin;
+}
+
 // 🧠 Fenster Funktionen
 function createWindowapp() {
     appWindow = createWindow("https://myfirstwebsite.lima-city.at/app", appWindow, "App");
@@ -82,6 +104,10 @@ function createWindowmassager() {
 
 function createWindowlogin() {
     loginWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/login.html", loginWindow, "login");
+}
+
+function createWindowmassages() {
+    massageWindow = createWindow2("massages.html", massageWindow, "login");
 }
 
 // 🧠 Mitteilung senden
@@ -121,7 +147,8 @@ const menuTemplate = [
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
    //         { label: "Login", click: () => loadOrDownloadHTML(createWindowOffline) },
-            { label: "Login", click: createWindowlogin }
+            { label: "Login", click: createWindowlogin },
+            { label: "Massages", click: createWindowmassages }
         ],
     },
 ];
