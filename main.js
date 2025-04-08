@@ -172,3 +172,9 @@ app.on("window-all-closed", (e) => {
 app.on("activate", () => {
     if (!ftpWindow) createWindowftp();
 });
+
+
+// ipcMain Listener für Benachrichtigungen
+ipcMain.on('send-notification', (event, body) => {
+  sendNotification(body);
+});
