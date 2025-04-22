@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const https = require("https");
 
-let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow, loginWindow, massageWindow;
+let ftpWindow, appWindow, streamWindow, kiWindow, emailWindow, massagerWindow, loginWindow, massageWindow, ftp2Window;
 let tray = null;
 
 const userDataPath = app.getPath("userData");
@@ -88,6 +88,10 @@ function createWindowmassages() {
     massageWindow = createWindow("https://myfirstwebsite.lima-city.at/passwort/massages.html", massageWindow, "Massages");
 }
 
+function createWindowftp2() {
+    massageWindow = createWindow("https://myfirstwebsite.lima-city.at/ftp2", ftp2Window, "FTP2");
+}
+
 // 🧠 Mitteilung senden
 function sendNotification(body) {
     const iconPath = path.join(__dirname, 'icon.png'); // Stelle sicher, dass das Icon im gleichen Verzeichnis wie dein main.js liegt
@@ -124,7 +128,8 @@ const menuTemplate = [
             { label: "E-Mail", click: createWindowemail },
             { label: "Chat", click: createWindowmassager },
             { label: "Login", click: createWindowlogin },
-            { label: "Massages", click: createWindowmassages }
+            { label: "Massages", click: createWindowmassages },
+            { label: "FTP2", click: createWindowftp2 }
         ],
     },
 ];
