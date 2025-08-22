@@ -153,9 +153,9 @@ app.whenReady().then(() => {
     );
 
     // 📣 Alle 5 Minuten Notification senden
-    setInterval(() => {
-        sendNotification("App läuft im Hintergrund!");
-    }, 1 * 60 * 1000); // 1 Minute
+    // setInterval(() => {
+    //     sendNotification("App läuft im Hintergrund!");
+    // }, 1 * 60 * 1000); // 1 Minute
 });
 
 // 🧼 App beenden verhindern, wenn Fenster geschlossen wird
